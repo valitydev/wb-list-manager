@@ -1,7 +1,7 @@
 package com.rbkmoney.wb.list.manager.service;
 
-import com.rbkmoney.damsel.wb_list.ChangeCommand;
-import com.rbkmoney.damsel.wb_list.Event;
+import dev.vality.damsel.wb_list.ChangeCommand;
+import dev.vality.damsel.wb_list.Event;
 
 public interface CommandService {
 

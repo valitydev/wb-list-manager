@@ -1,10 +1,10 @@
 package com.rbkmoney.wb.list.manager.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.damsel.wb_list.Result;
 import com.rbkmoney.wb.list.manager.TestObjectFactory;
 import com.rbkmoney.wb.list.manager.model.Row;
 import com.rbkmoney.wb.list.manager.repository.ListRepository;
+import dev.vality.damsel.wb_list.Result;
 import org.apache.thrift.TException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class WbListServiceHandlerTest {
 
     @Mock
     private ListRepository listRepository;
-    private com.rbkmoney.damsel.wb_list.Row row;
+    private dev.vality.damsel.wb_list.Row row;
 
     @BeforeEach
     void setUp() {
@@ -56,7 +56,7 @@ public class WbListServiceHandlerTest {
 
     @Test
     void isAllExist() throws TException {
-        ArrayList<com.rbkmoney.damsel.wb_list.Row> list = new ArrayList<>();
+        ArrayList<dev.vality.damsel.wb_list.Row> list = new ArrayList<>();
         boolean exist = wbListServiceHandler.isAllExist(list);
         assertTrue(exist);
 
@@ -73,7 +73,7 @@ public class WbListServiceHandlerTest {
 
     @Test
     void isAnyExist() throws TException {
-        ArrayList<com.rbkmoney.damsel.wb_list.Row> list = new ArrayList<>();
+        ArrayList<dev.vality.damsel.wb_list.Row> list = new ArrayList<>();
         boolean exist = wbListServiceHandler.isAnyExist(list);
         assertFalse(exist);
 
@@ -92,7 +92,7 @@ public class WbListServiceHandlerTest {
 
     @Test
     void isNoOneExist() throws TException {
-        ArrayList<com.rbkmoney.damsel.wb_list.Row> list = new ArrayList<>();
+        ArrayList<dev.vality.damsel.wb_list.Row> list = new ArrayList<>();
         boolean exist = wbListServiceHandler.isNotOneExist(list);
         assertTrue(exist);
 

@@ -2,11 +2,11 @@ package com.rbkmoney.wb.list.manager.converter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.damsel.wb_list.ChangeCommand;
-import com.rbkmoney.damsel.wb_list.CountInfo;
 import com.rbkmoney.wb.list.manager.model.CountInfoModel;
 import com.rbkmoney.wb.list.manager.model.Row;
 import com.rbkmoney.wb.list.manager.utils.KeyGenerator;
+import dev.vality.damsel.wb_list.ChangeCommand;
+import dev.vality.damsel.wb_list.CountInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -21,14 +21,14 @@ public class CommandToRowConverter implements Converter<ChangeCommand, Row> {
     @Override
     public Row convert(ChangeCommand command) {
         Row row = new Row();
-        com.rbkmoney.damsel.wb_list.Row commandRow = command.getRow();
+        dev.vality.damsel.wb_list.Row commandRow = command.getRow();
         String key = KeyGenerator.generateKey(commandRow);
         row.setKey(key);
         row.setValue(initValue(commandRow));
         return row;
     }
 
-    private String initValue(com.rbkmoney.damsel.wb_list.Row commandRow) {
+    private String initValue(dev.vality.damsel.wb_list.Row commandRow) {
         if (commandRow.isSetRowInfo() && commandRow.getRowInfo().isSetCountInfo()) {
             try {
                 CountInfo countInfo = commandRow.getRowInfo().getCountInfo();

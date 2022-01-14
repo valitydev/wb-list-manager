@@ -1,16 +1,16 @@
 package com.rbkmoney.wb.list.manager;
 
-import com.rbkmoney.damsel.wb_list.*;
-import com.rbkmoney.testcontainers.annotations.kafka.KafkaTestcontainer;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaConsumer;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaConsumerConfig;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaProducer;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaProducerConfig;
 import com.rbkmoney.wb.list.manager.extension.AwaitilityExtension;
 import com.rbkmoney.wb.list.manager.extension.RiakTestcontainerExtension;
 import com.rbkmoney.wb.list.manager.utils.ChangeCommandWrapper;
 import com.rbkmoney.woody.api.flow.error.WRuntimeException;
 import com.rbkmoney.woody.thrift.impl.http.THClientBuilder;
+import dev.vality.damsel.wb_list.*;
+import dev.vality.testcontainers.annotations.kafka.KafkaTestcontainer;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumerConfig;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaProducerConfig;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 import org.awaitility.Awaitility;

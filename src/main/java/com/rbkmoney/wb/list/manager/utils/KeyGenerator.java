@@ -1,7 +1,7 @@
 package com.rbkmoney.wb.list.manager.utils;
 
-import com.rbkmoney.damsel.wb_list.ListType;
-import com.rbkmoney.damsel.wb_list.PaymentId;
+import dev.vality.damsel.wb_list.ListType;
+import dev.vality.damsel.wb_list.PaymentId;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
@@ -11,7 +11,7 @@ public class KeyGenerator {
 
     private static final String DELIMITER = "_";
 
-    public static String generateKey(com.rbkmoney.damsel.wb_list.Row row) {
+    public static String generateKey(dev.vality.damsel.wb_list.Row row) {
         if (row.isSetId() && row.getId().isSetPaymentId()) {
             PaymentId paymentId = row.getId().getPaymentId();
             return generateKey(row.getListType(), row.getListName(), row.getValue(), paymentId.getPartyId(),

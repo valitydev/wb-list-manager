@@ -1,11 +1,11 @@
 package com.rbkmoney.wb.list.manager.service;
 
-import com.rbkmoney.damsel.wb_list.ChangeCommand;
-import com.rbkmoney.damsel.wb_list.Event;
-import com.rbkmoney.damsel.wb_list.EventType;
 import com.rbkmoney.wb.list.manager.converter.CommandToRowConverter;
 import com.rbkmoney.wb.list.manager.model.Row;
 import com.rbkmoney.wb.list.manager.repository.ListRepository;
+import dev.vality.damsel.wb_list.ChangeCommand;
+import dev.vality.damsel.wb_list.Event;
+import dev.vality.damsel.wb_list.EventType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

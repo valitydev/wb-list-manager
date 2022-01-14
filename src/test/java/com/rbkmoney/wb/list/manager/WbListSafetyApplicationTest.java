@@ -1,13 +1,13 @@
 package com.rbkmoney.wb.list.manager;
 
-import com.rbkmoney.damsel.wb_list.ChangeCommand;
-import com.rbkmoney.damsel.wb_list.Command;
-import com.rbkmoney.testcontainers.annotations.KafkaSpringBootTest;
-import com.rbkmoney.testcontainers.annotations.kafka.KafkaTestcontainer;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaProducer;
 import com.rbkmoney.wb.list.manager.config.MockedStartupInitializers;
 import com.rbkmoney.wb.list.manager.exception.RiakExecutionException;
 import com.rbkmoney.wb.list.manager.repository.ListRepository;
+import dev.vality.damsel.wb_list.ChangeCommand;
+import dev.vality.damsel.wb_list.Command;
+import dev.vality.testcontainers.annotations.KafkaSpringBootTest;
+import dev.vality.testcontainers.annotations.kafka.KafkaTestcontainer;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import org.apache.thrift.TBase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
