@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.rbkmoney</groupId>
+        <groupId>dev.vality</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>2.0.9</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>wb-list-manager</artifactId>
@@ -24,9 +24,9 @@
         <dockerfile.base.service.tag>c0612d6052ac049496b72a23a04acb142035f249</dockerfile.base.service.tag>
         <dockerfile.registry>dr2.rbkmoney.com</dockerfile.registry>
         <shared.resources.version>0.3.7</shared.resources.version>
-        <wb.list.proto.version>1.39-e20ba71</wb.list.proto.version>
+        <wb.list.proto.version>1.44-5dbd6d4</wb.list.proto.version>
         <kafka.common.lib.version>0.1.4</kafka.common.lib.version>
-        <testcontainers.annotations.version>1.3.0</testcontainers.annotations.version>
+        <testcontainers.annotations.version>1.3.2</testcontainers.annotations.version>
     </properties>
 
     <dependencies>
@@ -66,10 +66,10 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>spring-boot-starter-metrics-statsd</artifactId>
-            <version>1.1.0</version>
+            <version>1.1.3</version>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney</groupId>
+            <groupId>dev.vality</groupId>
             <artifactId>wb-list-proto</artifactId>
             <version>${wb.list.proto.version}</version>
         </dependency>
@@ -114,7 +114,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney</groupId>
+            <groupId>dev.vality</groupId>
             <artifactId>testcontainers-annotations</artifactId>
             <version>${testcontainers.annotations.version}</version>
             <scope>test</scope>

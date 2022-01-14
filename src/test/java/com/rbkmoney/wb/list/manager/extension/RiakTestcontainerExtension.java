@@ -1,6 +1,6 @@
 package com.rbkmoney.wb.list.manager.extension;
 
-import com.rbkmoney.testcontainers.annotations.util.GenericContainerUtil;
+import dev.vality.testcontainers.annotations.util.GenericContainerUtil;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;

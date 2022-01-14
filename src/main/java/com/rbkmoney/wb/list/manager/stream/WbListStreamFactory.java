@@ -1,9 +1,9 @@
 package com.rbkmoney.wb.list.manager.stream;
 
-import com.rbkmoney.damsel.wb_list.ChangeCommand;
 import com.rbkmoney.wb.list.manager.serializer.CommandSerde;
 import com.rbkmoney.wb.list.manager.serializer.EventSerde;
 import com.rbkmoney.wb.list.manager.service.CommandService;
+import dev.vality.damsel.wb_list.ChangeCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;

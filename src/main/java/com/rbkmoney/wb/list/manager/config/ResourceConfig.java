@@ -1,9 +1,9 @@
 package com.rbkmoney.wb.list.manager.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.damsel.wb_list.WbListServiceSrv;
 import com.rbkmoney.wb.list.manager.handler.WbListServiceHandler;
 import com.rbkmoney.wb.list.manager.repository.ListRepository;
+import dev.vality.damsel.wb_list.WbListServiceSrv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
