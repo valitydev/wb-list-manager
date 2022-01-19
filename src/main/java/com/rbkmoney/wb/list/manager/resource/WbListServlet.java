@@ -1,7 +1,7 @@
 package com.rbkmoney.wb.list.manager.resource;
 
-import com.rbkmoney.woody.thrift.impl.http.THServiceBuilder;
 import dev.vality.damsel.wb_list.WbListServiceSrv;
+import dev.vality.woody.thrift.impl.http.THServiceBuilder;
 import lombok.RequiredArgsConstructor;
 
 import javax.servlet.*;
