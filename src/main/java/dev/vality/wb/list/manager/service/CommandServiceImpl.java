@@ -25,6 +25,7 @@ public class CommandServiceImpl implements CommandService {
         log.info("CommandService apply row: {}", row);
         Event event = applyCommandAndGetEvent(command, row);
         event.setRow(command.getRow());
+        event.setUserInfo(command.getUserInfo());
         return event;
     }
 
