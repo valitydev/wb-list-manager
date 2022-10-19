@@ -62,8 +62,8 @@ public class RiakTestcontainerExtension implements BeforeAllCallback, AfterAllCa
                 var container = THREAD_CONTAINER.get();
                 if (container != null) {
                     TestPropertyValues.of(
-                                    "riak.address=" + container.getContainerIpAddress(),
-                                    "riak.port=" + container.getMappedPort(8087))
+                                    "riak-config.address=" + container.getContainerIpAddress(),
+                                    "riak-config.port=" + container.getMappedPort(8087))
                             .applyTo(context);
                 }
             };
