@@ -27,7 +27,7 @@ public class ListRepository implements CrudRepository<Row, String> {
     private static final String TEXT_PLAIN = "text/plain";
     private final RiakClient client;
 
-    @Value("${riak.bucket}")
+    @Value("${riak-config.bucket}")
     private String bucket;
 
     @Override

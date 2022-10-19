@@ -37,7 +37,7 @@ spring:
     streams:
       application-id: wb-list
       client-id: wb-list-client
-riak:
+riak-config:
   address: localhost
   port: 8087
   bucket: wblist

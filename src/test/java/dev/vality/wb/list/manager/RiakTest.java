@@ -29,7 +29,7 @@ public class RiakTest {
     private static final String VALUE = "value";
     private static final String KEY = "key";
 
-    @Value("${riak.bucket}")
+    @Value("${riak-config.bucket}")
     private String bucketName;
 
     @Autowired
