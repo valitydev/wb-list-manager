@@ -45,7 +45,7 @@ public class RiakTest {
         row.setValue(VALUE);
         Awaitility.await()
                 .pollDelay(5_000L, TimeUnit.MILLISECONDS)
-                .atMost(20_000L, TimeUnit.MILLISECONDS)
+                .atMost(30_000L, TimeUnit.MILLISECONDS)
                 .ignoreExceptions()
                 .until(() -> {
                     listRepository.create(row);
