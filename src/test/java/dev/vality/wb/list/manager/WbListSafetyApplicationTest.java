@@ -62,7 +62,7 @@ public class WbListSafetyApplicationTest {
                 .setListName("test"));
         testThriftKafkaProducer.send(topic, changeCommand);
 
-        Mockito.clearInvocations(listRepository);
+        clearInvocations(listRepository);
         verify(listRepository, timeout(2000L).times(0)).create(any());
     }
 
