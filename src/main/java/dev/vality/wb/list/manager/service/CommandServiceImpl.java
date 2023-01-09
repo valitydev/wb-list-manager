@@ -9,6 +9,7 @@ import dev.vality.wb.list.manager.repository.ListRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Component
@@ -23,6 +24,10 @@ public class CommandServiceImpl implements CommandService {
         log.info("CommandService apply command: {}", command);
         Row row = commandToRowConverter.convert(command);
         log.info("CommandService apply row: {}", row);
+        if (row == null || !StringUtils.hasText(row.getValue())) {
+            log.warn("Ignore empty command row value: {}", row);
+            return null;
+        }
         Event event = applyCommandAndGetEvent(command, row);
         event.setRow(command.getRow());
         event.setUserInfo(command.getUserInfo());

@@ -41,6 +41,7 @@ public class WbListStreamFactory {
                     .peek((s, changeCommand) -> log.info("Command stream check command: {}", changeCommand))
                     .mapValues(command ->
                             retryTemplate.execute(args -> commandService.apply(command)))
+                    .filter((s, event) -> event != null)
                     .to(resultTopic, Produced.with(Serdes.String(), eventSerde));
             return new KafkaStreams(builder.build(), streamsConfiguration);
         } catch (Exception e) {

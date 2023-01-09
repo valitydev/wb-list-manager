@@ -2,6 +2,8 @@ package dev.vality.wb.list.manager;
 
 import dev.vality.damsel.wb_list.ChangeCommand;
 import dev.vality.damsel.wb_list.Command;
+import dev.vality.damsel.wb_list.ListType;
+import dev.vality.damsel.wb_list.Row;
 import dev.vality.testcontainers.annotations.KafkaSpringBootTest;
 import dev.vality.testcontainers.annotations.kafka.KafkaTestcontainer;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
@@ -46,6 +48,21 @@ public class WbListSafetyApplicationTest {
         testThriftKafkaProducer.send(topic, changeCommand);
 
         verify(listRepository, timeout(2000L).times(3)).create(any());
+    }
+
+    @Test
+    void kafkaRowTestEmptyValue() throws Exception {
+        ChangeCommand changeCommand = TestObjectFactory.testCommand();
+        changeCommand.setCommand(Command.CREATE);
+        changeCommand.setRow(new Row()
+                .setListType(ListType.black)
+                .setShopId("test")
+                .setValue("")
+                .setListName("test"));
+        testThriftKafkaProducer.send(topic, changeCommand);
+
+        clearInvocations(listRepository);
+        verify(listRepository, timeout(2000L).times(0)).create(any());
     }
 
 }
