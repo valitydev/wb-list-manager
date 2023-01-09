@@ -12,7 +12,6 @@ import dev.vality.wb.list.manager.exception.RiakExecutionException;
 import dev.vality.wb.list.manager.repository.ListRepository;
 import org.apache.thrift.TBase;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -58,7 +57,7 @@ public class WbListSafetyApplicationTest {
         changeCommand.setRow(new Row()
                 .setListType(ListType.black)
                 .setShopId("test")
-                        .setValue("")
+                .setValue("")
                 .setListName("test"));
         testThriftKafkaProducer.send(topic, changeCommand);
 
