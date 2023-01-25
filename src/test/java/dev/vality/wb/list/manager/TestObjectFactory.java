@@ -22,6 +22,20 @@ public abstract class TestObjectFactory {
         return row;
     }
 
+    public static dev.vality.damsel.wb_list.Row testRowWithEmptyListName() {
+        dev.vality.damsel.wb_list.Row row = new dev.vality.damsel.wb_list.Row();
+        row.setId(IdInfo.payment_id(new PaymentId()
+                .setShopId(randomString())
+                .setPartyId(randomString())
+        ));
+        row.setListType(ListType.black);
+        row.setListName("");
+        row.setValue(randomString());
+        row.setPartyId(row.getId().getPaymentId().getPartyId());
+        row.setShopId(row.getId().getPaymentId().getShopId());
+        return row;
+    }
+
     public static String randomString() {
         return UUID.randomUUID().toString();
     }

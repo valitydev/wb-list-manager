@@ -26,6 +26,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +99,18 @@ public class WbListManagerApplicationTest {
         assertTrue(eventList.stream()
                 .map(Event::getRow)
                 .anyMatch(row -> row.getPartyId().equals(testRow.getPartyId())));
+    }
+
+    @Test
+    void kafkaWbListCorrectionStreamsTest() throws Exception {
+        Row testRow = TestObjectFactory.testRowWithEmptyListName();
+        ChangeCommand changeCommand = produceCreateRow(testRow);
+        Awaitility.await()
+                .until(() -> handler.isExist(changeCommand.getRow()));
+
+        Awaitility.await()
+                .atMost(Duration.ofSeconds(30))
+                .until(() -> (handler.getRowInfo(changeCommand.getRow()) == null));
     }
 
     @Test

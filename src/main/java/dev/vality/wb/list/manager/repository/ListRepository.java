@@ -33,7 +33,7 @@ public class ListRepository implements CrudRepository<Row, String> {
     @Override
     public void create(Row row) {
         try {
-            log.debug("ListRepository create in bucket: {} row: {}", bucket, row);
+            log.info("ListRepository create in bucket: {} row: {}", bucket, row);
             RiakObject quoteObject = new RiakObject()
                     .setContentType(TEXT_PLAIN)
                     .setValue(BinaryValue.create(row.getValue()));
@@ -56,7 +56,7 @@ public class ListRepository implements CrudRepository<Row, String> {
     @Override
     public void remove(Row row) {
         try {
-            log.debug("ListRepository remove from bucket: {} row: {}", bucket, row);
+            log.info("ListRepository remove from bucket: {} row: {}", bucket, row);
             Location quoteObjectLocation = createLocation(bucket, row.getKey());
             DeleteValue delete = new DeleteValue.Builder(quoteObjectLocation).build();
             client.execute(delete);

@@ -51,3 +51,7 @@ kafka:
     topic:
       command: "wb-list-command"
       event.sink: "wb-list-event-sink"
+  correction-stream:
+    enabled: true
+    application-id: wb-list-correction-empty-list-name
+    client-id: wb-list-correction-empty-list-name-client
