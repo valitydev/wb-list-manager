@@ -91,7 +91,6 @@ public class WbListManagerApplicationTest {
 
         assertFalse(exist);
 
-
         List<Event> eventList = new ArrayList<>();
         testCommandKafkaConsumer.read(topicEventSink, data -> eventList.add(data.value()));
         Unreliables.retryUntilTrue(TIMEOUT, TimeUnit.SECONDS, () -> eventList.size() == 2);
@@ -110,7 +109,8 @@ public class WbListManagerApplicationTest {
 
         Awaitility.await()
                 .atMost(Duration.ofSeconds(30))
-                .until(() -> (handler.getRowInfo(changeCommand.getRow()) == null));
+                .pollDelay(2L, TimeUnit.SECONDS)
+                .until(() -> handler.isExist(changeCommand.getRow()));
     }
 
     @Test

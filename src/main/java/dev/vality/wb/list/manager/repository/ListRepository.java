@@ -58,7 +58,9 @@ public class ListRepository implements CrudRepository<Row, String> {
         try {
             log.info("ListRepository remove from bucket: {} row: {}", bucket, row);
             Location quoteObjectLocation = createLocation(bucket, row.getKey());
-            DeleteValue delete = new DeleteValue.Builder(quoteObjectLocation).build();
+            DeleteValue delete = new DeleteValue.Builder(quoteObjectLocation)
+                    .withOption(DeleteValue.Option.W, Quorum.oneQuorum())
+                    .build();
             client.execute(delete);
         } catch (InterruptedException e) {
             log.error("InterruptedException in ListRepository when remove e: ", e);
