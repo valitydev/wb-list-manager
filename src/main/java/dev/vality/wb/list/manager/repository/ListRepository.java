@@ -59,7 +59,7 @@ public class ListRepository implements CrudRepository<Row, String> {
             log.info("ListRepository remove from bucket: {} row: {}", bucket, row);
             Location quoteObjectLocation = createLocation(bucket, row.getKey());
             DeleteValue delete = new DeleteValue.Builder(quoteObjectLocation)
-                    .withOption(DeleteValue.Option.W, Quorum.oneQuorum())
+                    .withOption(DeleteValue.Option.W, Quorum.quorumQuorum())
                     .build();
             client.execute(delete);
         } catch (InterruptedException e) {

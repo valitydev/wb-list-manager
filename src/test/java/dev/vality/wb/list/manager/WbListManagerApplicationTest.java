@@ -108,9 +108,9 @@ public class WbListManagerApplicationTest {
                 .until(() -> handler.isExist(changeCommand.getRow()));
 
         Awaitility.await()
-                .atMost(Duration.ofSeconds(30))
+                .atMost(Duration.ofSeconds(60))
                 .pollDelay(2L, TimeUnit.SECONDS)
-                .until(() -> handler.isExist(changeCommand.getRow()));
+                .until(() -> !handler.isExist(changeCommand.getRow()));
     }
 
     @Test
