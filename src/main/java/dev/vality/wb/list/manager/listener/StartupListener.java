@@ -35,10 +35,12 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
         log.info("StartupListener start stream kafkaStreams: {}", kafkaStreams.metadataForAllStreamsClients());
 
         if (wbListCorrectionStreamProperties.getEnabled()) {
-            wbListStreamProperties.put("application.id", wbListCorrectionStreamProperties.getApplicationId());
-            wbListStreamProperties.put("client.id", wbListCorrectionStreamProperties.getClientId());
+            Properties properties = new Properties();
+            properties.putAll(wbListStreamProperties);
+            properties.put("application.id", wbListCorrectionStreamProperties.getApplicationId());
+            properties.put("client.id", wbListCorrectionStreamProperties.getClientId());
             kafkaStreamsWbListErrorRowsCorrection =
-                    wbListErrorRowsCorrectionStreamFactory.create(wbListStreamProperties);
+                    wbListErrorRowsCorrectionStreamFactory.create(properties);
             kafkaStreamsWbListErrorRowsCorrection.start();
             log.info("StartupListener start stream kafkaStreamsWbListErrorRowsCorrection: {}",
                     kafkaStreamsWbListErrorRowsCorrection.metadataForAllStreamsClients());
