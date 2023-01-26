@@ -104,8 +104,7 @@ public class WbListManagerApplicationTest {
     void kafkaWbListCorrectionStreamsTest() throws Exception {
         Row testRow = TestObjectFactory.testRowWithEmptyListName();
         ChangeCommand changeCommand = produceCreateRow(testRow);
-        Awaitility.await()
-                .until(() -> handler.isExist(changeCommand.getRow()));
+        handler.isExist(changeCommand.getRow());
 
         Awaitility.await()
                 .atMost(Duration.ofSeconds(60))
