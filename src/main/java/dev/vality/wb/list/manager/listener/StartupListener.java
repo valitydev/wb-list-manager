@@ -1,5 +1,7 @@
 package dev.vality.wb.list.manager.listener;
 
+import dev.vality.wb.list.manager.config.properties.WbListCorrectionStreamProperties;
+import dev.vality.wb.list.manager.stream.WbListErrorRowsCorrectionStreamFactory;
 import dev.vality.wb.list.manager.stream.WbListStreamFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,18 +22,34 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
     private final WbListStreamFactory wbListStreamFactory;
     private final Properties wbListStreamProperties;
     private final KafkaListenerEndpointRegistry registry;
+    private final WbListErrorRowsCorrectionStreamFactory wbListErrorRowsCorrectionStreamFactory;
+    private final WbListCorrectionStreamProperties wbListCorrectionStreamProperties;
 
     private KafkaStreams kafkaStreams;
+    private KafkaStreams kafkaStreamsWbListErrorRowsCorrection;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         kafkaStreams = wbListStreamFactory.create(wbListStreamProperties);
         kafkaStreams.start();
-        log.info("StartupListener start stream kafkaStreams: {}", kafkaStreams.allMetadata());
+        log.info("StartupListener start stream kafkaStreams: {}", kafkaStreams.metadataForAllStreamsClients());
+
+        if (wbListCorrectionStreamProperties.getEnabled()) {
+            wbListStreamProperties.put("application.id", wbListCorrectionStreamProperties.getApplicationId());
+            wbListStreamProperties.put("client.id", wbListCorrectionStreamProperties.getClientId());
+            kafkaStreamsWbListErrorRowsCorrection =
+                    wbListErrorRowsCorrectionStreamFactory.create(wbListStreamProperties);
+            kafkaStreamsWbListErrorRowsCorrection.start();
+            log.info("StartupListener start stream kafkaStreamsWbListErrorRowsCorrection: {}",
+                    kafkaStreamsWbListErrorRowsCorrection.metadataForAllStreamsClients());
+        }
     }
 
     public void stop() {
         kafkaStreams.close(Duration.ofSeconds(1L));
+        if (wbListCorrectionStreamProperties.getEnabled()) {
+            kafkaStreamsWbListErrorRowsCorrection.close(Duration.ofSeconds(1L));
+        }
         registry.stop();
     }
 

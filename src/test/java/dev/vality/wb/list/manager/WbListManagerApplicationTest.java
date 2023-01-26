@@ -26,6 +26,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,6 @@ public class WbListManagerApplicationTest {
 
         assertFalse(exist);
 
-
         List<Event> eventList = new ArrayList<>();
         testCommandKafkaConsumer.read(topicEventSink, data -> eventList.add(data.value()));
         Unreliables.retryUntilTrue(TIMEOUT, TimeUnit.SECONDS, () -> eventList.size() == 2);
@@ -98,6 +98,20 @@ public class WbListManagerApplicationTest {
         assertTrue(eventList.stream()
                 .map(Event::getRow)
                 .anyMatch(row -> row.getPartyId().equals(testRow.getPartyId())));
+    }
+
+    @Test
+    void kafkaWbListCorrectionStreamsTest() throws Exception {
+        Row testRow = TestObjectFactory.testRowWithEmptyListName();
+        ChangeCommand changeCommand = produceCreateRow(testRow);
+        handler.isExist(changeCommand.getRow());
+
+        Awaitility.await()
+                .atMost(Duration.ofSeconds(60))
+                .pollDelay(2L, TimeUnit.SECONDS)
+                .until(() -> !handler.isExist(changeCommand.getRow()));
+
+        assertFalse(handler.isExist(changeCommand.getRow()));
     }
 
     @Test
