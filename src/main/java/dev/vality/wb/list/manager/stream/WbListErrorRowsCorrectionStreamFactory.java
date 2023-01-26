@@ -4,6 +4,7 @@ import dev.vality.damsel.wb_list.ChangeCommand;
 import dev.vality.damsel.wb_list.Command;
 import dev.vality.damsel.wb_list.Event;
 import dev.vality.damsel.wb_list.EventType;
+import dev.vality.wb.list.manager.exception.KafkaStreamInitialException;
 import dev.vality.wb.list.manager.serializer.CommandSerde;
 import dev.vality.wb.list.manager.serializer.EventSerde;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,6 @@ import org.apache.kafka.streams.kstream.Produced;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.Properties;
 
 @Slf4j
@@ -44,7 +44,7 @@ public class WbListErrorRowsCorrectionStreamFactory {
             return new KafkaStreams(builder.build(), streamsConfiguration);
         } catch (Exception e) {
             log.error("WbListStreamFactory error when create stream e: ", e);
-            throw new RuntimeException(e);
+            throw new KafkaStreamInitialException(e);
         }
     }
 

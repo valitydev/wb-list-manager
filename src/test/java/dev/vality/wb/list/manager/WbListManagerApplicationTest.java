@@ -110,6 +110,8 @@ public class WbListManagerApplicationTest {
                 .atMost(Duration.ofSeconds(60))
                 .pollDelay(2L, TimeUnit.SECONDS)
                 .until(() -> !handler.isExist(changeCommand.getRow()));
+
+        assertFalse(handler.isExist(changeCommand.getRow()));
     }
 
     @Test
