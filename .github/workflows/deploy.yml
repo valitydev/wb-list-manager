@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Checkout GitHub Action JDK Build Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Checkout GitHub Action Deploy Docker Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: valitydev/action-deploy-docker
           ref: v1.0.16
