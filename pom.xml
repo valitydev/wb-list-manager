@@ -6,11 +6,11 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>1.0.18</version>
+        <version>1.0.20</version>
     </parent>
 
     <artifactId>wb-list-manager</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>wb-list-manager</name>
@@ -24,7 +24,7 @@
         <dockerfile.base.service.tag>c0612d6052ac049496b72a23a04acb142035f249</dockerfile.base.service.tag>
         <dockerfile.registry>dr2.rbkmoney.com</dockerfile.registry>
         <shared.resources.version>0.3.7</shared.resources.version>
-        <wb.list.proto.version>1.44-5dbd6d4</wb.list.proto.version>
+        <wb.list.proto.version>1.44-5dbd1.49-d0256f0</wb.list.proto.version>
         <testcontainers.annotations.version>1.4.3</testcontainers.annotations.version>
     </properties>
 
@@ -119,8 +119,7 @@
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <version>4.1.0</version>
-            <scope>test</scope>
+            <version>4.1.0</ve4.2.0</scope>
         </dependency>
     </dependencies>
 
@@ -154,10 +153,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.6.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.shared</groupId>
+                <version>1.6.0</ve1.7.0</groupId>
                         <artifactId>maven-filtering</artifactId>
                         <version>1.3</version>
                     </dependency>
@@ -181,7 +177,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>0.8.10</version>
                 <configuration>
                     <destFile>${sonar.jacoco.reportPath}</destFile>
                     <append>true</append>

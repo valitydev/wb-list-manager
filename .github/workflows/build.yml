@@ -16,4 +16,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Build Java
-        uses: valitydev/action-jdk-build@v0.0.7
+        uses: valitydev/action-jdk-build@v0.0.14
