@@ -30,7 +30,7 @@ management:
       prometheus:
         enabled: false
     tags:
-      application: proxy-mocket-inspector
+      application: wb-list-manager
   endpoint:
     health:
       show-details: always
