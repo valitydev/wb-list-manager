@@ -28,7 +28,7 @@ jobs:
           path: .github/actions/action-deploy-docker
 
       - name: Run Build Java
-        uses: valitydev/action-jdk-build@v0.0.7
+        uses: valitydev/action-jdk-build@v0.0.14
 
       - name: Deploy image
         uses: ./.github/actions/action-deploy-docker
