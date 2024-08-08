@@ -1,11 +1,11 @@
 info:
-  version: '@project.version@'
+  version: ${project.version}
   stage: dev
 
 server:
-  port: '@server.port@'
+  port: ${server.port}
   rest:
-    port: '@server.rest.port@'
+    port: ${server.rest.port}
     endpoint: ch-manager
 
 spring:
@@ -24,11 +24,8 @@ spring:
 
 management:
   server:
-    port: '@management.port@'
+    port: ${management.port}
   metrics:
-    export:
-      prometheus:
-        enabled: false
     tags:
       application: wb-list-manager
   endpoint:

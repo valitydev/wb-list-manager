@@ -2,9 +2,9 @@ package dev.vality.wb.list.manager.resource;
 
 import dev.vality.damsel.wb_list.WbListServiceSrv;
 import dev.vality.woody.thrift.impl.http.THServiceBuilder;
+import jakarta.servlet.*;
 import lombok.RequiredArgsConstructor;
 
-import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
