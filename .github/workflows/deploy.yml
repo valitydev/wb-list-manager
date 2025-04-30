@@ -14,4 +14,3 @@ jobs:
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
       mm-webhook-url: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-

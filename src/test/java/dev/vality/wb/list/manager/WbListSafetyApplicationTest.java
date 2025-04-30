@@ -29,7 +29,7 @@ import static org.mockito.Mockito.*;
 @KafkaTestcontainer(topicsKeys = {"kafka.wblist.topic.command", "kafka.wblist.topic.event.sink"})
 @Import(ConsumerConfig.class)
 @Testcontainers
-@EnableAutoConfiguration(exclude= FlywayAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = FlywayAutoConfiguration.class)
 public class WbListSafetyApplicationTest {
 
     @Value("${kafka.wblist.topic.command}")
