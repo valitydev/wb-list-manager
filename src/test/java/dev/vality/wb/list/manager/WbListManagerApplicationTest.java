@@ -54,10 +54,6 @@ import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOU
                 "kafka.topic.payment.max-poll-records=1",
                 "clean.period.day=0"})
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ContextConfiguration(classes = {
-        WbListManagerApplication.class,
-        KafkaProducerConfig.class,
-        ConsumerConfig.class})
 public class WbListManagerApplicationTest {
 
     public static final String IDENTITY_ID = "identityId";
