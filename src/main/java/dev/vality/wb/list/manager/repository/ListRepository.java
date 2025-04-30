@@ -21,8 +21,10 @@ public class ListRepository implements CrudRepository<Row, String> {
     public void create(Row row) {
         try {
             log.info("ListRepository create in row: {}", row);
-            jdbcTemplate.update("INSERT INTO wb_list.raws(id, value) VALUES(?,?) ON CONFLICT DO UPDATE", row.getKey(),
-                    row.getValue());
+            jdbcTemplate.update("""
+                    INSERT INTO wb_list.raws(id, value) VALUES(?,?) ON CONFLICT (id) DO UPDATE
+                    SET value = ?
+                    """, row.getKey(), row.getValue(), row.getValue());
         } catch (Exception e) {
             log.error("Exception in ListRepository when create e: ", e);
             throw new DbExecutionException();
