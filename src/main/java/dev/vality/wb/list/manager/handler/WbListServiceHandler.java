@@ -2,7 +2,7 @@ package dev.vality.wb.list.manager.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.damsel.wb_list.*;
-import dev.vality.wb.list.manager.exception.RiakExecutionException;
+import dev.vality.wb.list.manager.exception.DbExecutionException;
 import dev.vality.wb.list.manager.model.CountInfoModel;
 import dev.vality.wb.list.manager.repository.ListRepository;
 import dev.vality.wb.list.manager.utils.KeyGenerator;
@@ -25,7 +25,7 @@ public class WbListServiceHandler implements WbListServiceSrv.Iface {
     public boolean isExist(Row row) throws TException {
         try {
             return getCascadeRow(row).isPresent();
-        } catch (RiakExecutionException e) {
+        } catch (DbExecutionException e) {
             log.error("WbListServiceHandler error when isExist row: {} e: ", row, e);
             throw new TException(e);
         }

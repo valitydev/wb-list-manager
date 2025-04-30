@@ -6,7 +6,7 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>1.0.18</version>
+        <version>3.0.9</version>
     </parent>
 
     <artifactId>wb-list-manager</artifactId>
@@ -23,7 +23,13 @@
         <exposed.ports>${server.port} ${management.port}</exposed.ports>
         <shared.resources.version>0.3.7</shared.resources.version>
         <wb.list.proto.version>1.44-5dbd6d4</wb.list.proto.version>
-        <testcontainers.annotations.version>1.4.3</testcontainers.annotations.version>
+        <testcontainers.annotations.version>2.0.4</testcontainers.annotations.version>
+        <db.pg.port>5432</db.pg.port>
+        <db.pg.user>postgres</db.pg.user>
+        <db.pg.password>postgres</db.pg.password>
+        <db.pg.name>wb_list</db.pg.name>
+        <db.pg.schema>public</db.pg.schema>
+        <db.pg.url>jdbc:postgresql://localhost:${db.pg.port}/${db.pg.name}</db.pg.url>
     </properties>
 
     <dependencies>
@@ -50,15 +56,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
 
         <!-- ValityDev-->
         <dependency>
-            <groupId>dev.vality</groupId>
-            <artifactId>shared-resources</artifactId>
-        </dependency>
-        <dependency>
             <groupId>dev.vality.woody</groupId>
             <artifactId>woody-thrift</artifactId>
+            <version>2.0.9</version>
         </dependency>
         <dependency>
             <groupId>dev.vality</groupId>
@@ -78,18 +85,28 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.basho.riak</groupId>
-            <artifactId>riak-client</artifactId>
-            <version>2.1.1</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.msk</groupId>
             <artifactId>aws-msk-iam-auth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>11.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>11.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!--kafka-->
@@ -118,6 +135,17 @@
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <version>4.1.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>kafka</artifactId>
+            <version>1.20.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -174,6 +202,34 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <configuration>
+                    <url>${db.pg.url}</url>
+                    <user>${db.pg.user}</user>
+                    <password>${db.pg.password}</password>
+                    <schemas>
+                        <schema>${db.pg.schema}</schema>
+                    </schemas>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>migrate</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>migrate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

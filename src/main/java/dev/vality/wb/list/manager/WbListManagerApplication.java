@@ -1,6 +1,5 @@
 package dev.vality.wb.list.manager;
 
-import com.basho.riak.client.api.RiakClient;
 import dev.vality.wb.list.manager.listener.StartupListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -15,8 +14,6 @@ public class WbListManagerApplication extends SpringApplication {
 
     @Autowired
     private StartupListener startupListener;
-    @Autowired
-    private RiakClient client;
 
     public static void main(String[] args) {
         SpringApplication.run(WbListManagerApplication.class, args);
@@ -25,6 +22,5 @@ public class WbListManagerApplication extends SpringApplication {
     @PreDestroy
     public void preDestroy() {
         startupListener.stop();
-        client.shutdown();
     }
 }
