@@ -28,7 +28,7 @@
         <db.pg.user>postgres</db.pg.user>
         <db.pg.password>postgres</db.pg.password>
         <db.pg.name>wb_list</db.pg.name>
-        <db.pg.schema>public</db.pg.schema>
+        <db.pg.schema>wb_list</db.pg.schema>
         <db.pg.url>jdbc:postgresql://localhost:${db.pg.port}/${db.pg.name}</db.pg.url>
     </properties>
 

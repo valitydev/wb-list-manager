@@ -47,7 +47,6 @@ import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOU
 
 @Import(ConsumerConfig.class)
 @Testcontainers
-@EnableAutoConfiguration(exclude = FlywayAutoConfiguration.class)
 @ExtendWith({AwaitilityExtension.class})
 @KafkaSpringBootTest
 @KafkaTestcontainer(topicsKeys = {"kafka.wblist.topic.command", "kafka.wblist.topic.event.sink"},
