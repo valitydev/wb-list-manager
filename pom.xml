@@ -201,34 +201,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <configuration>
-                    <url>${db.pg.url}</url>
-                    <user>${db.pg.user}</user>
-                    <password>${db.pg.password}</password>
-                    <schemas>
-                        <schema>${db.pg.schema}</schema>
-                    </schemas>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>migrate</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>migrate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>${postgresql.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 </project>
