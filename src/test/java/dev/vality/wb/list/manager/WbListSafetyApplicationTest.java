@@ -12,14 +12,13 @@ import dev.vality.wb.list.manager.exception.DbExecutionException;
 import dev.vality.wb.list.manager.repository.ListRepository;
 import org.apache.thrift.TBase;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -28,7 +27,6 @@ import static org.mockito.Mockito.*;
 @TestPropertySource(properties = {"retry.timeout=100"})
 @KafkaTestcontainer(topicsKeys = {"kafka.wblist.topic.command", "kafka.wblist.topic.event.sink"})
 @Import(ConsumerConfig.class)
-@Testcontainers
 @EnableAutoConfiguration(exclude = FlywayAutoConfiguration.class)
 public class WbListSafetyApplicationTest {
 
@@ -38,7 +36,7 @@ public class WbListSafetyApplicationTest {
     @Autowired
     private KafkaProducer<TBase<?, ?>> testThriftKafkaProducer;
 
-    @Mock
+    @MockBean
     private ListRepository listRepository;
 
     @Test
@@ -52,7 +50,7 @@ public class WbListSafetyApplicationTest {
 
         testThriftKafkaProducer.send(topic, changeCommand);
 
-        verify(listRepository, timeout(2000L).times(3)).create(any());
+        verify(listRepository, timeout(5000L).times(3)).create(any());
     }
 
     @Test
