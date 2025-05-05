@@ -22,7 +22,7 @@ public class ListRepository implements CrudRepository<Row, String> {
         try {
             log.info("ListRepository create in row: {}", row);
             jdbcTemplate.update("""
-                    INSERT INTO wb_list.raws(id, value) VALUES(?,?) ON CONFLICT (id) DO UPDATE
+                    INSERT INTO wb_list.row(id, value) VALUES(?,?) ON CONFLICT (id) DO UPDATE
                     SET value = ?
                     """, row.getKey(), row.getValue(), row.getValue());
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class ListRepository implements CrudRepository<Row, String> {
     public void remove(Row row) {
         try {
             log.info("ListRepository remove from row: {}", row);
-            jdbcTemplate.update("DELETE FROM wb_list.raws WHERE id = ?", row.getKey());
+            jdbcTemplate.update("DELETE FROM wb_list.row WHERE id = ?", row.getKey());
         } catch (Exception e) {
             log.error("Exception in ListRepository when remove e: ", e);
             throw new DbExecutionException(e);
@@ -46,7 +46,7 @@ public class ListRepository implements CrudRepository<Row, String> {
     public Optional<Row> get(String key) {
         try {
             log.info("ListRepository select from row by key: {}", key);
-            String value = jdbcTemplate.queryForObject("SELECT value FROM wb_list.raws WHERE id = ?",
+            String value = jdbcTemplate.queryForObject("SELECT value FROM wb_list.row WHERE id = ?",
                     new Object[] {key}, String.class);
             return value != null
                     ? Optional.of(new Row(key, value))
