@@ -40,7 +40,7 @@ public class ListRepositoryTest {
 
     @BeforeEach
     public void setUp() throws SQLException {
-        jdbcTemplate.execute("truncate table wb_list.raws;");
+        jdbcTemplate.execute("truncate table wb_list.row;");
     }
 
     @DynamicPropertySource

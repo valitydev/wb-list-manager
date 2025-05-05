@@ -95,7 +95,7 @@ public class WbListManagerApplicationTest {
 
     @BeforeEach
     void setUp() throws URISyntaxException {
-        jdbcTemplate.execute("truncate table wb_list.raws;");
+        jdbcTemplate.execute("truncate table wb_list.row;");
         THClientBuilder clientBuilder = new THClientBuilder()
                 .withAddress(new URI(String.format(SERVICE_URL, serverPort)))
                 .withNetworkTimeout(300000);
