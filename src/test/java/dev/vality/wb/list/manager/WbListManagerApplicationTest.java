@@ -1,13 +1,13 @@
 package dev.vality.wb.list.manager;
 
 import dev.vality.damsel.wb_list.*;
+import dev.vality.testcontainers.annotations.KafkaSpringBootTest;
 import dev.vality.testcontainers.annotations.kafka.KafkaTestcontainer;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaProducerConfig;
 import dev.vality.wb.list.manager.config.ConsumerConfig;
 import dev.vality.wb.list.manager.extension.AwaitilityExtension;
-import dev.vality.wb.list.manager.extension.RiakTestcontainerExtension;
 import dev.vality.wb.list.manager.utils.ChangeCommandWrapper;
 import dev.vality.woody.api.flow.error.WRuntimeException;
 import dev.vality.woody.thrift.impl.http.THClientBuilder;
@@ -20,9 +20,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.rnorth.ducttape.unreliables.Unreliables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,14 +45,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOUT;
 
-@ExtendWith({RiakTestcontainerExtension.class, AwaitilityExtension.class})
-@KafkaTestcontainer(topicsKeys = {"kafka.wblist.topic.command", "kafka.wblist.topic.event.sink"})
+@Import(ConsumerConfig.class)
+@Testcontainers
+@ExtendWith({AwaitilityExtension.class})
+@KafkaSpringBootTest
+@KafkaTestcontainer(topicsKeys = {"kafka.wblist.topic.command", "kafka.wblist.topic.event.sink"},
+        properties = {"kafka.topic.payment.concurrency=1",
+                "kafka.topic.payment.max-poll-records=1",
+                "clean.period.day=0"})
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ContextConfiguration(
-        classes = {
-                WbListManagerApplication.class,
-                KafkaProducerConfig.class,
-                ConsumerConfig.class})
 public class WbListManagerApplicationTest {
 
     public static final String IDENTITY_ID = "identityId";
@@ -68,10 +78,24 @@ public class WbListManagerApplicationTest {
     @Autowired
     private KafkaConsumer<Event> testCommandKafkaConsumer;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     private WbListServiceSrv.Iface handler;
+
+    @Container
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:14-alpine");
+
+    @DynamicPropertySource
+    static void dataSourceProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
+        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+    }
 
     @BeforeEach
     void setUp() throws URISyntaxException {
+        jdbcTemplate.execute("truncate table wb_list.row;");
         THClientBuilder clientBuilder = new THClientBuilder()
                 .withAddress(new URI(String.format(SERVICE_URL, serverPort)))
                 .withNetworkTimeout(300000);

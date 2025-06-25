@@ -1,19 +1,28 @@
 info:
-  version: '@project.version@'
+  version: ${project.version}
   stage: dev
 
 server:
-  port: '@server.port@'
+  port: ${server.port}
   rest:
-    port: '@server.rest.port@'
+    port: ${server.rest.port}
     endpoint: ch-manager
 
 spring:
   application:
-    name: '@project.name@'
+    name: ${project.name}
   output:
     ansi:
       enabled: always
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: ${db.pg.url}
+    username: ${db.pg.user}
+    password: ${db.pg.password}
+  flyway:
+    baseline-on-migrate: true
+    table: flyway_schema_history
   main:
     allow-bean-definition-overriding: true
   kafka:
@@ -24,7 +33,7 @@ spring:
 
 management:
   server:
-    port: '@management.port@'
+    port: ${management.port}
   metrics:
     export:
       prometheus:
