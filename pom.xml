@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>wb-list-manager</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>wb-list-manager</name>
@@ -23,7 +23,7 @@
         <exposed.ports>${server.port} ${management.port}</exposed.ports>
         <shared.resources.version>0.3.7</shared.resources.version>
         <wb.list.proto.version>1.44-5dbd6d4</wb.list.proto.version>
-        <testcontainers.annotations.version>2.0.4</testcontainers.annotations.version>
+        <testcontainers.annotations.version>3.2.0</testcontainers.annotations.version>
         <db.pg.port>5432</db.pg.port>
         <db.pg.user>postgres</db.pg.user>
         <db.pg.password>postgres</db.pg.password>
