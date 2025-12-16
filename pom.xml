@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>wb-list-manager</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>wb-list-manager</name>
@@ -143,7 +143,7 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>kafka</artifactId>
-            <version>1.21.3</version>
+            <version>1.21.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
