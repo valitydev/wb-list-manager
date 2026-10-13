@@ -1,6 +1,5 @@
 package dev.vality.wb.list.manager.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.damsel.wb_list.Result;
 import dev.vality.wb.list.manager.TestObjectFactory;
 import dev.vality.wb.list.manager.model.Row;
@@ -12,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -30,7 +30,8 @@ public class WbListServiceHandlerTest {
 
     @BeforeEach
     void setUp() {
-        wbListServiceHandler = new WbListServiceHandler(listRepository, new ObjectMapper());
+        wbListServiceHandler = new WbListServiceHandler(listRepository,
+                JsonMapper.builder().configureForJackson2().build());
         Row rowValue = new Row();
         rowValue.setValue(TestObjectFactory.randomString());
         row = TestObjectFactory.testRow();

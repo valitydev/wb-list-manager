@@ -70,3 +70,5 @@ kafka:
     enabled: true
     application-id: wb-list-correction-empty-list-name
     client-id: wb-list-correction-empty-list-name-client
+
+spring.jackson.use-jackson2-defaults: true
