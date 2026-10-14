@@ -1,17 +1,17 @@
 package dev.vality.wb.list.manager.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serializer;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.ser.FilterProvider;
+import tools.jackson.databind.ser.std.SimpleBeanPropertyFilter;
+import tools.jackson.databind.ser.std.SimpleFilterProvider;
 
 import java.util.Map;
 
 @Slf4j
 public class CommandSerializer implements Serializer<ChangeCommandWrapper> {
-    private final ObjectMapper om = new ObjectMapper();
+    private final JsonMapper om = JsonMapper.builder().configureForJackson2().build();
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {

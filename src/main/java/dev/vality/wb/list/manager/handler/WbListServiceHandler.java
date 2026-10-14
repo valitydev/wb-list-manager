@@ -1,6 +1,5 @@
 package dev.vality.wb.list.manager.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.damsel.wb_list.*;
 import dev.vality.wb.list.manager.exception.DbExecutionException;
 import dev.vality.wb.list.manager.model.CountInfoModel;
@@ -9,8 +8,9 @@ import dev.vality.wb.list.manager.utils.KeyGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class WbListServiceHandler implements WbListServiceSrv.Iface {
 
     private final ListRepository listRepository;
-    private final ObjectMapper objectMapper;
+    private final JsonMapper objectMapper;
 
     @Override
     public boolean isExist(Row row) throws TException {
@@ -73,7 +73,7 @@ public class WbListServiceHandler implements WbListServiceSrv.Iface {
                         .setTimeToLive(countInfoModel.getTtl())
                         .setStartCountTime(countInfoModel.getStartCountTime())
                 ));
-            } catch (IOException e) {
+            } catch (JacksonException e) {
                 log.error("Error when parse count info for row: {} e: ", row, e);
             }
         }
